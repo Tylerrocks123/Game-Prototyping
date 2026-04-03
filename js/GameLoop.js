@@ -19,7 +19,11 @@ function animate()
     player.move();
     if (player.x > canvas.width + player.width/2)
     {
-        player.x = -player.width/2
+        player.vx *= -1
+    }
+    if (player.x < 0 + player.width/2)
+    {
+        player.vx = 2;
     }
     player.draw();
 }
