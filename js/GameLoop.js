@@ -19,19 +19,23 @@ function animate()
     player.move();
     if (player.x > canvas.width + player.width/2)
     {
-        player.vx *= -1
+        player.vx *= -1;
+        player.color = "#40ff00";
     }
     if (player.x < 0 + player.width/2)
     {
         player.vx = 2;
+        player.color = "#ff0000";
     }
     if (player.y > canvas.height + player.height/2)
     {
-        player.vy *= -1
+        player.vy *= -1;
+        player.color = "#ff40b6";
     }
     if (player.y < 0 + player.height/2)
     {
         player.vy = 2;
+        player.color = "#0000ff";
     }
     player.draw();
 }
