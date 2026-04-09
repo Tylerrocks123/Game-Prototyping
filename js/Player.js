@@ -1,21 +1,68 @@
-function Player()
+function GameObject(x,y,w,h,color)
 {
     //set up player starting point
-    this.x = canvas.width/2;
-    this.y = canvas.height/2;
+    //set up x
+    if(x==undefined)
+    {
+        this.x = canvas.width/2;
+    }
+    else
+    {
+        this.x = x;
+    }
+    //set up y
+    if(y==undefined)
+    {
+        this.y = canvas.height/2;
+    }
+    else
+    {
+        this.y = y;
+    }
 
     //set up player dimensions
-    this.width = 100;
-    this.height = 100;
+    if(w==undefined)
+    {
+        this.width = 100;
+    }
+    else
+    {
+        this.width = w;
+    }
+
+    if(h==undefined)
+    {
+        this.height = 100;
+    }
+    else
+    {
+        this.height = h;
+    }
 
     //set up player color
-    this.color = "#ff0000"
+    if(color==undefined)
+    {
+        this.color = "#ff0000";
+    }
+    else
+    {
+        this.color = color;
+    }
 
     //set up player's velocity
     this.vx = 0;
     this.vy = 0;
 
-    this.draw = function()
+    this.drawRect = function()
+    {
+        context.save();
+            context.fillStyle = this.color;
+            context.translate(this.x,this.y);
+            context.fillRect(-this.width/2,-this.height/2,this.width,this.height);
+        context.restore();
+    }
+
+    this.drawCircle = function()
     {
         context.beginPath();
         context.fillStyle = this.color;
