@@ -4,13 +4,17 @@ var player;
 var timer;
 var interval = 1000/60;
 
+var frictionX = 0.8;
+var frictionY = 0.8;
+var gravity = 1;
+
 canvas = document.getElementById("canvas");
 context = canvas.getContext("2d");
 
 player = new GameObject(100,canvas.height/2,100,100,"#eeea1e");
-npc1 = new GameObject(300,canvas.height/2,100,100,"#1eaeff");
+/* npc1 = new GameObject(300,canvas.height/2,100,100,"#1eaeff");
 npc2 = new GameObject(600,canvas.height/2,100,100,"#df1eaf");
-npc3 = new GameObject(900,canvas.height/2,100,100,"#00ff00");
+npc3 = new GameObject(900,canvas.height/2,100,100,"#00ff00"); */
 //player.vx = 2;
 //player.vy = 2;
 
@@ -20,14 +24,20 @@ function animate()
 {
     context.clearRect(0,0,canvas.width,canvas.height);
 
-    if(d)
+    /* if(d)
     {
         player.x += 4;
     }
     if(a)
     {
         player.x -= 4;
-    }
+    } */
+
+    doHandleAcceleration();
+    doHandleFriction();
+    doHandleGravity();
+    doUpdatePosition();
+    doCheckBottomBounds();
 
     player.move();
     if (player.x > canvas.width + player.width/2)
@@ -52,7 +62,7 @@ function animate()
     }
 
 //npc1 collision stuff
-if(npc1.collisionCheck(player))
+/* if(npc1.collisionCheck(player))
     {
         npc1.color = "yellow";
         npc1.width = 125;
@@ -76,10 +86,57 @@ if (npc3.collisionCheck(player))
 else
 {
     player.prevX = player.x;
-}
+} */
 
     player.drawCircle();
-    npc1.drawCircle();
+    /* npc1.drawCircle();
     npc2.drawCircle();
-    npc3.drawRect();
+    npc3.drawRect(); */
+}
+
+function doHandleAcceleration()
+{
+    if (d)
+    {
+        player.vx += player.ax * player.force;
+    }
+    if (a)
+    {
+        player.vx += player.ax * -player.force;
+    }
+}
+
+function doHandleFriction()
+{
+    player.vx *= frictionX;
+}
+
+function doHandleGravity()
+{
+    player.vy += gravity;
+}
+
+function doUpdatePosition()
+{
+    player.x += player.vx;
+    player.y += player.vy;
+}
+
+function doCheckBottomBounds()
+{
+    if (player.y > canvas.height - player.height/2)
+    {
+        player.y = canvas.height - player.height/2;
+        player.vy = 0;
+        doJump();
+    }
+}
+
+function doJump()
+{
+    if (w)
+    {
+        player.vy = -20;
+        
+    }
 }

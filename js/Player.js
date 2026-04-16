@@ -69,6 +69,11 @@ function GameObject(x,y,w,h,color)
 
     this.prevX = this.x;
 
+    //set up physics
+    this.force = 1;
+    this.ax = 1;
+    this.ay = 1;
+
     //set up player's velocity
     this.vx = 0;
     this.vy = 0;
