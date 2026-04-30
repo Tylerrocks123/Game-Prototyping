@@ -147,9 +147,7 @@ function GameObject(x,y,w,h,color)
         return false;
     }
 
-}
-
-this.hitTestPoint = function(obj)
+    this.hitTestPoint = function(obj)
 {
     if(obj.x >= this.left().x && obj.x <= this.right().x && obj.y >= this.top().y && obj.y <= this.bottom().y)
     {
@@ -157,3 +155,6 @@ this.hitTestPoint = function(obj)
     }
     return false;
 }
+
+}
+

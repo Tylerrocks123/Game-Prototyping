@@ -31,7 +31,7 @@ function animate()
     if (w && player.canJump)
     {
         player.canJump = false;
-        player.vy += -20;
+        player.vy += player.jumpSpeed;
     }
 
     /* if(d)
@@ -48,6 +48,19 @@ function animate()
     doHandleGravity();
     doUpdatePosition();
     doCheckBottomBounds();
+
+    while(platform0.hitTestPoint(player.bottom()))
+    {
+        player.y--;
+        player.vy = 0;
+        player.canJump = true;
+    }
+
+    while(platform0.hitTestPoint(player.top()))
+    {
+        player.y++;
+        player.vy = 0;
+    }
 
     player.move();
     if (player.x > canvas.width + player.width/2)
@@ -70,6 +83,8 @@ function animate()
        // player.vy = 2;
         player.color = "#0000ff";
     }
+
+    player.jumpSpeed = -20
 
 //npc1 collision stuff
 /* if(npc1.collisionCheck(player))
@@ -149,7 +164,7 @@ function doJump()
 {
     if (w)
     {
-        player.vy = -20;
+        player.vy = player.jumpSpeed;
         
     }
 }
