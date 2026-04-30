@@ -49,18 +49,18 @@ function animate()
     doUpdatePosition();
     doCheckBottomBounds();
 
-    while(platform0.hitTestPoint(player.bottom()))
+    while(platform0.hitTestPoint(player.bottom()) && player.vy >= 0)
     {
         player.y--;
         player.vy = 0;
         player.canJump = true;
     }
 
-    while(platform0.hitTestPoint(player.top()))
-    {
-        player.y++;
-        player.vy = 0;
-    }
+    // while(platform0.hitTestPoint(player.top()))
+    // {
+    //     player.y++;
+    //     player.vy = 0;
+    // }
 
     player.move();
     if (player.x > canvas.width + player.width/2)
