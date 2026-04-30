@@ -49,24 +49,42 @@ function GameObject(x,y,w,h,color)
         this.color = color;
     }
 
-    //set up bounding box
+    // //set up bounding box
+    // this.left = function()
+    // {
+    //     return this.x - this.width/2;
+    // }
+    // this.right = function()
+    // {
+    //     return this.x + this.width/2;
+    // }
+    // this.top = function()
+    // {
+    //     return this.y - this.height/2;
+    // }
+    // this.bottom = function()
+    // {
+    //     return this.y + this.height/2;
+    // }
+
     this.left = function()
     {
-        return this.x - this.width/2;
+        return {x: this.x - this.width/2, y: this.y};
     }
     this.right = function()
     {
-        return this.x + this.width/2;
+        return {x: this.x + this.width/2, y: this.y};
     }
     this.top = function()
     {
-        return this.y - this.height/2;
+        return {x: this.x, y: this.y - this.height/2};
     }
     this.bottom = function()
     {
-        return this.y + this.height/2;
+        return {x: this.x, y: this.y + this.height/2};
     }
 
+    this.canJump = false;
     this.prevX = this.x;
 
     //set up physics
@@ -96,6 +114,19 @@ function GameObject(x,y,w,h,color)
         context.closePath();
     }
 
+    this.drawDebug = function()
+    {
+        var size = 10;
+        context.save();
+        context.fillStyle = "black";
+        context.fillRect(this.x - size/2, this.y - size/2, size, size);
+        context.fillRect(this.left().x - size/2, this.left().y - size/2, size, size);
+        context.fillRect(this.right().x - size/2, this.right().y - size/2, size, size);
+        context.fillRect(this.top().x - size/2, this.top().y - size/2, size, size);
+        context.fillRect(this.bottom().x - size/2, this.bottom().y - size/2, size, size);
+        context.restore();
+    }
+
     this.move = function()
     {
         this.x += this.vx;
@@ -116,4 +147,13 @@ function GameObject(x,y,w,h,color)
         return false;
     }
 
+}
+
+this.hitTestPoint = function(obj)
+{
+    if(obj.x >= this.left().x && obj.x <= this.right().x && obj.y >= this.top().y && obj.y <= this.bottom().y)
+    {
+        return true;
+    }
+    return false;
 }

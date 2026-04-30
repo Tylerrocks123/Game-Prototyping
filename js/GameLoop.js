@@ -12,6 +12,10 @@ canvas = document.getElementById("canvas");
 context = canvas.getContext("2d");
 
 player = new GameObject(100,canvas.height/2,100,100,"#eeea1e");
+platform0 = new GameObject();
+platform0.width = 400;
+platform0.y = player.y + player.height/2 + platform0.height/2;
+platform0.color = "#66ff33";
 /* npc1 = new GameObject(300,canvas.height/2,100,100,"#1eaeff");
 npc2 = new GameObject(600,canvas.height/2,100,100,"#df1eaf");
 npc3 = new GameObject(900,canvas.height/2,100,100,"#00ff00"); */
@@ -23,6 +27,12 @@ timer = setInterval(animate, interval);
 function animate()
 {
     context.clearRect(0,0,canvas.width,canvas.height);
+
+    if (w && player.canJump)
+    {
+        player.canJump = false;
+        player.vy += -20;
+    }
 
     /* if(d)
     {
@@ -89,6 +99,8 @@ else
 } */
 
     player.drawCircle();
+    player.drawDebug();
+    platform0.drawRect();
     /* npc1.drawCircle();
     npc2.drawCircle();
     npc3.drawRect(); */
@@ -128,7 +140,8 @@ function doCheckBottomBounds()
     {
         player.y = canvas.height - player.height/2;
         player.vy = 0;
-        doJump();
+        player.canJump = true;
+        //doJump();
     }
 }
 
