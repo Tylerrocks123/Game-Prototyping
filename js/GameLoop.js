@@ -31,13 +31,7 @@ function animate()
     context.clearRect(0,0,canvas.clientWidth,canvas.height);
     for (var i = 0; i < dots.length; i++)
     {
-        dots[i].x += dots[i].vx;
-        dots[i].y += dots[i].vy;
+        dots[i].move();
         dots[i].drawCircle();
     }
-}
-
-function rand(low, high)
-{
-    return Math.random() * (high - low) + low;
 }
