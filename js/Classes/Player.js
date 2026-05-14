@@ -96,6 +96,8 @@ function GameObject(x,y,w,h,color)
     this.vx = 0;
     this.vy = 0;
 
+    this.angle = 0;
+
     this.drawRect = function()
     {
         context.save();
@@ -112,6 +114,21 @@ function GameObject(x,y,w,h,color)
         context.arc(this.x,this.y,this.width/2,0,360*Math.PI/180,true)
         context.fill();
         context.closePath();
+    }
+
+    this.drawTriangle = function()
+    {
+        context.save();
+        context.fillStyle = this.color;
+        context.translate(this.x,this.y);
+        context.rotate(this.angle * Math.PI/180);
+        context.beginPath();
+        context.moveTo(0 + this.height/2, 0);
+        context.lineTo(0 - this.width/2, 0 - this.height/4);
+        context.lineTo(0 - this.width/2, 0 + this.height/4);
+        context.fill();
+        context.closePath();
+        context.restore();
     }
 
     this.drawDebug = function()
